@@ -1,0 +1,50 @@
+﻿@model WebAppTilausDB.Models.Tilausrivit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tilausrivit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Maara)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maara)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ahinta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ahinta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tilaukset.Toimitusosoite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tilaukset.Toimitusosoite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tuotteet.Nimi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tuotteet.Nimi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TilausriviID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
