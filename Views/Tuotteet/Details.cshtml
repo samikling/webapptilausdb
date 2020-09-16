@@ -23,7 +23,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Ahinta)
+            @*@Html.DisplayFor(model => model.Ahinta.Value.ToString("c"))*@
+            @Model.Ahinta.Value.ToString("c")
         </dd>
 
         <dt>
@@ -31,8 +32,13 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Kuva)
+            <img class="card-img-top" style="height: 200px; width: auto; display: block;" src=@Model.ImageLink alt="@Model.ImageLink">
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+            
+        </dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
 
     </dl>
 </div>

@@ -1,45 +1,65 @@
 ﻿@model IEnumerable<WebAppTilausDB.Models.Tuotteet>
-
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@section scripts
+    {
+    <script type="text/javascript">
+        $(function () {
+            $(".showProductId").click(function () {
+                var productId = $(this).data("productid");
+                alert(productId);
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nimi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ahinta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Kuva)
-        </th>
-        <th></th>
-    </tr>
+            });
+        });
+        $(function () {
+            $("#poistaTuote").click(function () {
+                var productId = $(this).data("productid");
+                alert(productId);
+            });
+        });
+    </script>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nimi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ahinta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Kuva)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TuoteID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TuoteID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TuoteID })
-        </td>
-    </tr>
 }
+<div class=" container-fluid">
+    <h2>Index</h2>
+    <h5>Tuotteita @Model.Count() kappaletta</h5>
 
-</table>
+    <div class="row">
+
+        @foreach (WebAppTilausDB.Models.Tuotteet prod in Model)
+        {
+        <div class="col-sm-3 col-md-6 col-lg-4">
+            <div class=" card-deck">
+            <div class="card" style="width: 18rem; height:20rem;">
+            <a href="@Url.Action("Details", "Tuotteet", new { id=prod.TuoteID })" class="stretched-link"></a> @*Linkki Tuotteeseen ilman tekstiä.*@
+                <div>
+                    <h3 class="card-header text-center" style="width:18rem;">
+                        @prod.Nimi
+                    </h3>
+                    <div class="card-body text-center">
+                        <img class="card-img-top" style="height:auto;width:auto;max-height:150px; max-width: 18rem; display: block;" src=@prod.ImageLink alt="@prod.ImageLink">
+                        <br>
+                        <div class="card-footer text-center"style="width:18rem;">
+
+                            <p>@prod.Ahinta.Value.ToString("c")</p>
+                            @*<li class="list-group-item">Unit price: @prod.UnitPrice</li>*@
+
+                        </div>
+                    </div>
+                </div>
+
+                @*<button class="btn btn-primary showProductId" data-productID="@prod.ProductID">Muokkaa</button>*@
+            </div>
+        </div>
+                        <br>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    function naytaValittuTuote(tuoteID) {
+        alert(tuoteID);
+    }
+</script>

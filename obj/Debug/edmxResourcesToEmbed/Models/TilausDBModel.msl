@@ -58,10 +58,21 @@
     <EntitySetMapping Name="Tuotteet">
       <EntityTypeMapping TypeName="TilausDBModel.Tuotteet">
         <MappingFragment StoreEntitySet="Tuotteet">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
           <ScalarProperty Name="TuoteID" ColumnName="TuoteID" />
           <ScalarProperty Name="Nimi" ColumnName="Nimi" />
           <ScalarProperty Name="Ahinta" ColumnName="Ahinta" />
           <ScalarProperty Name="Kuva" ColumnName="Kuva" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logins">
+      <EntityTypeMapping TypeName="TilausDBModel.Logins">
+        <MappingFragment StoreEntitySet="Logins">
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

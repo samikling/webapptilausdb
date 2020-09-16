@@ -22,6 +22,15 @@ namespace WebAppFirst.Controllers
             var tuotteet = db.Tuotteet;
             return View(tuotteet.ToList());
         }
+        public ActionResult Index2()
+        {
+            //List<Shippers> model = db.Shippers.ToList();    //Lista nimeltä model, joka ottaa vastaan Products kategoriaan kuuluvia rivejä, jotka sijoitetaan db oliosta listana.
+            ////db.Dispose();                                   //Suljetaan tietokanta yhteys
+
+            //return View(model);                             //Palautetaan näkymälle lista model.
+            var tuotteet = db.Tuotteet;
+            return View(tuotteet.ToList());
+        }
         [HttpGet]
         public ActionResult Edit(int? id) //parametri tutkitaan ja etsitään taulusta vastaavaa riviä. Jos vastaavuus löytyy, Näytetään Edit.cshtml sivu.
         {

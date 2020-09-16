@@ -21,6 +21,14 @@
     <Property Name="Postinumero" Type="varchar" MaxLength="5" />
     <Property Name="Sahkoposti" Type="nvarchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="Logins">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="Postitoimipaikat">
     <Key>
       <PropertyRef Name="Postinumero" />
@@ -57,6 +65,8 @@
     <Property Name="Nimi" Type="varchar" MaxLength="50" />
     <Property Name="Ahinta" Type="numeric" Precision="7" Scale="2" />
     <Property Name="Kuva" Type="image" />
+    <Property Name="ImageLink" Type="varchar" MaxLength="200" />
+    <Property Name="Description" Type="varchar" MaxLength="2000" />
   </EntityType>
   <Association Name="FK_Asiakkaat_Postitoimipaikat">
     <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
@@ -121,6 +131,7 @@
   <EntityContainer Name="TilausDBModelStoreContainer">
     <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Henkilot" EntityType="Self.Henkilot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Postitoimipaikat" EntityType="Self.Postitoimipaikat" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tilaukset" EntityType="Self.Tilaukset" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tilausrivit" EntityType="Self.Tilausrivit" Schema="dbo" store:Type="Tables" />

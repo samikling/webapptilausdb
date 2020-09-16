@@ -67,6 +67,8 @@
     <Property Name="Ahinta" Type="Decimal" Precision="7" Scale="2" />
     <Property Name="Kuva" Type="Binary" MaxLength="Max" FixedLength="false" />
     <NavigationProperty Name="Tilausrivit" Relationship="Self.FK_Tilausrivit_Tuotteet" FromRole="Tuotteet" ToRole="Tilausrivit" />
+    <Property Name="ImageLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_Asiakkaat_Postitoimipaikat">
     <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
@@ -155,5 +157,14 @@
       <End Role="Tuotteet" EntitySet="Tuotteet" />
       <End Role="Tilausrivit" EntitySet="Tilausrivit" />
     </AssociationSet>
+    <EntitySet Name="Logins" EntityType="TilausDBModel.Logins" />
   </EntityContainer>
+  <EntityType Name="Logins">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

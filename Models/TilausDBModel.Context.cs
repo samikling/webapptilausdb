@@ -31,5 +31,6 @@ namespace WebAppTilausDB.Models
         public virtual DbSet<Tilaukset> Tilaukset { get; set; }
         public virtual DbSet<Tilausrivit> Tilausrivit { get; set; }
         public virtual DbSet<Tuotteet> Tuotteet { get; set; }
+        public virtual DbSet<Logins> Logins { get; set; }
     }
 }
