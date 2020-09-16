@@ -17,28 +17,49 @@ namespace WebAppTilausDB.Controllers
         // GET: Henkilots
         public ActionResult Index()
         {
-            return View(db.Henkilot.ToList());
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                return View(db.Henkilot.ToList());
+            }
         }
 
         // GET: Henkilots/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["UserName"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("login", "home");
             }
-            Henkilot henkilot = db.Henkilot.Find(id);
-            if (henkilot == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Henkilot henkilot = db.Henkilot.Find(id);
+                if (henkilot == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(henkilot);
             }
-            return View(henkilot);
         }
 
         // GET: Henkilots/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // POST: Henkilots/Create
@@ -61,16 +82,23 @@ namespace WebAppTilausDB.Controllers
         // GET: Henkilots/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["UserName"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("login", "home");
             }
-            Henkilot henkilot = db.Henkilot.Find(id);
-            if (henkilot == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Henkilot henkilot = db.Henkilot.Find(id);
+                if (henkilot == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(henkilot);
             }
-            return View(henkilot);
         }
 
         // POST: Henkilots/Edit/5
@@ -92,16 +120,23 @@ namespace WebAppTilausDB.Controllers
         // GET: Henkilots/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["UserName"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("login", "home");
             }
-            Henkilot henkilot = db.Henkilot.Find(id);
-            if (henkilot == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Henkilot henkilot = db.Henkilot.Find(id);
+                if (henkilot == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(henkilot);
             }
-            return View(henkilot);
         }
 
         // POST: Henkilots/Delete/5

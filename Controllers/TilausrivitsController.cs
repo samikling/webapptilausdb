@@ -17,31 +17,52 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilausrivits
         public ActionResult Index()
         {
-            var tilausrivit = db.Tilausrivit.Include(t => t.Tilaukset).Include(t => t.Tuotteet);
-            return View(tilausrivit.ToList());
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                var tilausrivit = db.Tilausrivit.Include(t => t.Tilaukset).Include(t => t.Tuotteet);
+                return View(tilausrivit.ToList());
+            }
         }
 
         // GET: Tilausrivits/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["UserName"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("login", "home");
             }
-            Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
-            if (tilausrivit == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
+                if (tilausrivit == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tilausrivit);
             }
-            return View(tilausrivit);
         }
 
         // GET: Tilausrivits/Create
         public ActionResult Create()
         {
-            ViewBag.TilausID = new SelectList(db.Tilaukset, "TilausID", "Toimitusosoite");
-            ViewBag.TuoteID = new SelectList(db.Tuotteet, "TuoteID", "Nimi");
-            return View();
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.TilausID = new SelectList(db.Tilaukset, "TilausID", "Toimitusosoite");
+                ViewBag.TuoteID = new SelectList(db.Tuotteet, "TuoteID", "Nimi");
+                return View();
+            }
         }
 
         // POST: Tilausrivits/Create
@@ -66,18 +87,25 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilausrivits/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["UserName"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("login", "home");
             }
-            Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
-            if (tilausrivit == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
+                if (tilausrivit == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.TilausID = new SelectList(db.Tilaukset, "TilausID", "Toimitusosoite", tilausrivit.TilausID);
+                ViewBag.TuoteID = new SelectList(db.Tuotteet, "TuoteID", "Nimi", tilausrivit.TuoteID);
+                return View(tilausrivit);
             }
-            ViewBag.TilausID = new SelectList(db.Tilaukset, "TilausID", "Toimitusosoite", tilausrivit.TilausID);
-            ViewBag.TuoteID = new SelectList(db.Tuotteet, "TuoteID", "Nimi", tilausrivit.TuoteID);
-            return View(tilausrivit);
         }
 
         // POST: Tilausrivits/Edit/5
@@ -101,16 +129,23 @@ namespace WebAppTilausDB.Controllers
         // GET: Tilausrivits/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["UserName"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("login", "home");
             }
-            Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
-            if (tilausrivit == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Tilausrivit tilausrivit = db.Tilausrivit.Find(id);
+                if (tilausrivit == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tilausrivit);
             }
-            return View(tilausrivit);
         }
 
         // POST: Tilausrivits/Delete/5

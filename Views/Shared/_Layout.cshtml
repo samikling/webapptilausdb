@@ -1,4 +1,13 @@
 ﻿<!DOCTYPE html>
+   @{  string LoggedStatus = "";
+       if (Session["UserName"] != null) {
+           LoggedStatus = "In";
+       }
+       else
+       {
+           LoggedStatus = "Out";
+       }
+   }
 <html>
 <head>
     <meta charset="utf-8" />
@@ -14,17 +23,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/Home/Index">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/Home/Index">Koti <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tietoja</a>
                     <div class="dropdown-menu" style="">
                         <a class="dropdown-item" href="/Home/About">Yleistä</a>
                         <a class="dropdown-item" href="/Home/Contact">Yhteystiedot</a>
-                       
+
 
                     </div>
                 </li>
@@ -39,8 +49,36 @@
                         <a class="dropdown-item" href="/Tuotteet">Tuotteet</a>
                     </div>
                 </li>
+                @{ 
+                    if (Session["UserName"] != null)
+                    {
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/Home/LogOut">Kirjaudu ulos <span class="sr-only">(current)</span></a>
+                                </li>
+                    }
+                    if (Session["UserName"] == null)
+                    {
+                <li class="nav-item active align-items-end">
+                    <a class="nav-link" href="/Home/Login">Kirjaudu sisäään <span class="sr-only">(current)</span></a>
+                </li>
+
+                    }
+
+                }
+              
+                @{
+                    if (LoggedStatus == "Out")
+                    {
+                    <li class="navbar-text" style="color:red">(@LoggedStatus)</li>
+                    }
+                    else
+                    {
+                    <li class="navbar-text" style="color:lawngreen">(@LoggedStatus)</li>
+                    }
+                  }
+
             </ul>
-            
+
         </div>
     </nav>
     <div class="container body-content">

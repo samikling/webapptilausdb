@@ -20,40 +20,46 @@
             });
         });
     </script>
-
 }
+
 <div class=" container-fluid">
-    <h2>Index</h2>
+    <h2>Tuotekatalogi</h2>
+@if (Session["UserName"] != null) //Tarkitetaan onko käyttäjä kirjautunut ja jos on, näytetään uuden tuotteen lisäys nappi.
+{
+    <div>
+        <a class="btn btn-primary" href="/Tuotteet/Create" role="button">Lisää uusi Tuote</a>
+    </div>
+}
     <h5>Tuotteita @Model.Count() kappaletta</h5>
 
     <div class="row">
 
         @foreach (WebAppTilausDB.Models.Tuotteet prod in Model)
         {
-        <div class="col-sm-3 col-md-6 col-lg-4">
-            <div class=" card-deck">
-            <div class="card" style="width: 18rem; height:20rem;">
-            <a href="@Url.Action("Details", "Tuotteet", new { id=prod.TuoteID })" class="stretched-link"></a> @*Linkki Tuotteeseen ilman tekstiä.*@
-                <div>
-                    <h3 class="card-header text-center" style="width:18rem;">
-                        @prod.Nimi
-                    </h3>
-                    <div class="card-body text-center">
-                        <img class="card-img-top" style="height:auto;width:auto;max-height:150px; max-width: 18rem; display: block;" src=@prod.ImageLink alt="@prod.ImageLink">
-                        <br>
-                        <div class="card-footer text-center"style="width:18rem;">
+            <div class="col-sm-3 col-md-6 col-lg-4">
+                <div class=" card-deck">
+                    <div class="card" style="width: 18rem; height:20rem;">
+                        <a href="@Url.Action("Details", "Tuotteet", new { id=prod.TuoteID })" class="stretched-link"></a> @*Linkki Tuotteeseen ilman tekstiä.*@
+                        <div>
+                            <h3 class="card-header text-center" style="width:18rem;">
+                                @prod.Nimi
+                            </h3>
+                            <div class="card-body text-center">
+                                <img class="card-img-top" style="height:auto;width:auto;max-height:150px; max-width: 18rem; display: block;" src=@prod.ImageLink alt="@prod.ImageLink">
+                                <br>
+                                <div class="card-footer text-center" style="width:18rem;">
 
-                            <p>@prod.Ahinta.Value.ToString("c")</p>
-                            @*<li class="list-group-item">Unit price: @prod.UnitPrice</li>*@
+                                    <p>@prod.Ahinta.Value.ToString("c")</p>
+                                    @*<li class="list-group-item">Unit price: @prod.UnitPrice</li>*@
 
+                                </div>
+                            </div>
                         </div>
+
+                        @*<button class="btn btn-primary showProductId" data-productID="@prod.ProductID">Muokkaa</button>*@
                     </div>
                 </div>
-
-                @*<button class="btn btn-primary showProductId" data-productID="@prod.ProductID">Muokkaa</button>*@
-            </div>
-        </div>
-                        <br>
+                <br>
             </div>
         }
     </div>

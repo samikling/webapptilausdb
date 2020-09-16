@@ -11,9 +11,11 @@ namespace WebAppTilausDB.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Tilausrivit
     {
+        
         public int TilausriviID { get; set; }
         public Nullable<int> TilausID { get; set; }
         public Nullable<int> TuoteID { get; set; }
@@ -21,6 +23,7 @@ namespace WebAppTilausDB.Models
         public Nullable<decimal> Ahinta { get; set; }
     
         public virtual Tilaukset Tilaukset { get; set; }
+        [ForeignKey("TuoteID")]
         public virtual Tuotteet Tuotteet { get; set; }
     }
 }
