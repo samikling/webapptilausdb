@@ -1,8 +1,44 @@
-﻿@{
-    ViewBag.Title = "Tietokantasovellus";
+﻿@model WebAppTilausDB.Models.Logins
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+@{
+    ViewBag.Title = "Home Page";
 }
 
+
+@*JQuery, joka suoritetaan aina, kun sivu latautuu*@
+@section scripts {
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            if (@ViewBag.LoginError == 1) {
+                $('#LoginRuutu').modal('show');
+            }
+        });
+
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+}
+
+
+
+
 <div class="jumbotron">
-    <h1>Tietokantasovellus</h1>
-    <p class="lead">TilausDB Tietokannan luku -ja hallintasovellus. 2020 </p>
+    <h2>Minun ensimmäinen ASP.NET-sovellus</h2>
+
+
+
+
+
+
 </div>
+
+@{
+    Html.RenderPartial("_LoginModal");
+}
+
+
+
