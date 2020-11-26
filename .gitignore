@@ -362,4 +362,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 #Webconfig
-.Web.config
+Web.config
