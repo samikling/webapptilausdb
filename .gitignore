@@ -363,3 +363,4 @@ FodyWeavers.xsd
 
 #Webconfig
 Web.config
+!Views/Web.config
