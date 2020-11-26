@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-   @{  string LoggedStatus = "";
+   @*@{  string LoggedStatus = "";
        if (Session["UserName"] != null) {
            LoggedStatus = "In";
        }
@@ -7,7 +7,7 @@
        {
            LoggedStatus = "Out";
        }
-   }
+   }*@
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,70 +17,15 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/Home/Index">Tietokantasovellus Demo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-
-        <div class="collapse navbar-collapse" id="navbarColor02">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Home/Index">Koti <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tietoja</a>
-                    <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="/Home/About">Yleistä</a>
-                        <a class="dropdown-item" href="/Home/Contact">Yhteystiedot</a>
-
-
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tietokanta</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/Asiakkaats">Asiakkaat</a>
-                        <a class="dropdown-item" href="/Henkilots">Henkilöt</a>
-                        <a class="dropdown-item" href="/Postitoimipaikats">Postitoimipaikat</a>
-                        <a class="dropdown-item" href="/Tilauksets">Tilaukset</a>
-                        <a class="dropdown-item" href="/Tilausrivits">Tilausrivit</a>
-                        <a class="dropdown-item" href="/Tuotteet">Tuotteet</a>
-                    </div>
-                </li>
-                @{ 
-                    if (Session["UserName"] != null)
-                    {
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/Home/LogOut">Kirjaudu ulos <span class="sr-only">(current)</span></a>
-                                </li>
-                    }
-                    if (Session["UserName"] == null)
-                    {
-                <li class="nav-item active align-items-end">
-                    <a class="nav-link" href="/Home/Login">Kirjaudu sisäään <span class="sr-only">(current)</span></a>
-                </li>
-
-                    }
-
-                }
-              
-                @{
-                    if (LoggedStatus == "Out")
-                    {
-                    <li class="navbar-text" style="color:red">(@LoggedStatus)</li>
-                    }
-                    else
-                    {
-                    <li class="navbar-text" style="color:lawngreen">(@LoggedStatus)</li>
-                    }
-                  }
-
-            </ul>
-
-        </div>
-    </nav>
+   @{ 
+       if (Session["UserName"] == null)
+       {
+           Html.RenderPartial("_NavbarLoggedOut");
+       }
+       else {
+           Html.RenderPartial("_NavbarLoggedIn");
+       }
+   }
     <div class="container body-content">
         @RenderBody()
         <hr />
