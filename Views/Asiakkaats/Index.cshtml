@@ -1,5 +1,7 @@
-﻿@model IEnumerable<WebAppTilausDB.Models.Asiakkaat>
-
+﻿@*@model IEnumerable<WebAppTilausDB.Models.Asiakkaat>*@
+@model PagedList.IPagedList<WebAppTilausDB.Models.Asiakkaat>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
 }
@@ -12,13 +14,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nimi)
+            @Html.ActionLink("Nimi", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Osoite)
+            Osoite
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Postitoimipaikat.Postitoimipaikka)
+            Postitoimipaikka
         </th>
         <th></th>
     </tr>
@@ -57,3 +59,7 @@
             .forEach(tr => tbody.appendChild(tr));
     })));
 </script>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort,page}))
