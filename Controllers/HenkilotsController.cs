@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppTilausDB.Models;
+using PagedList;
 
 namespace WebAppTilausDB.Controllers
 {
@@ -15,7 +16,8 @@ namespace WebAppTilausDB.Controllers
         private TilausDBEntities db = new TilausDBEntities();
 
         // GET: Henkilots
-        public ActionResult Index()
+        //BareMinimum Pagedlistille
+        public ActionResult Index(int? page, int? pagesize)
         {
             if (Session["UserName"] == null)
             {
@@ -23,7 +25,22 @@ namespace WebAppTilausDB.Controllers
             }
             else
             {
-                return View(db.Henkilot.ToList());
+                //ViewBag.CurrentSort = sortOrder;
+                //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                var henkilot = db.Henkilot;
+                //switch (sortOrder)
+                //{
+                //    case "name_desc":
+                //        henkilot = henkilot.OrderByDescending(a => a.Sukunimi);
+                //        break;
+                //    default:
+                //        henkilot = henkilot.OrderBy(a => a.Sukunimi);
+                //        break;
+                //}
+                int pageSize = (pagesize ?? 3); //Tämä palauttaa sivukoon taikka jos pagesize on null, niin palauttaa koon 10 riviä per sivu
+                int pageNumber = (page ?? 1); //Tämä palauttaa sivunumeron taikka jos page on null, niin palauttaa numeron yksi
+                return View(henkilot.ToPagedList(pageNumber, pageSize));
+
             }
         }
 

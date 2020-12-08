@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppTilausDB.Models;
-
+using PagedList;
 namespace WebAppTilausDB.Controllers
 {
     public class TilausrivitsController : Controller
@@ -15,7 +15,10 @@ namespace WebAppTilausDB.Controllers
         private TilausDBEntities db = new TilausDBEntities();
 
         // GET: Tilausrivits
-        public ActionResult Index()
+       
+            
+        
+        public ActionResult Index(string sortOrder, int? page, int? pagesize)
         {
             if (Session["UserName"] == null)
             {
@@ -23,8 +26,22 @@ namespace WebAppTilausDB.Controllers
             }
             else
             {
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 var tilausrivit = db.Tilausrivit.Include(t => t.Tilaukset).Include(t => t.Tuotteet);
-                return View(tilausrivit.ToList());
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        tilausrivit = tilausrivit.OrderByDescending(a => a.TilausID);
+                        break;
+                    default:
+                        tilausrivit = tilausrivit.OrderBy(a => a.TilausID);
+                        break;
+                }
+                int pageSize = (pagesize ?? 3); //Tämä palauttaa sivukoon taikka jos pagesize on null, niin palauttaa koon 10 riviä per sivu
+                int pageNumber = (page ?? 1); //Tämä palauttaa sivunumeron taikka jos page on null, niin palauttaa numeron yksi
+                return View(tilausrivit.ToPagedList(pageNumber, pageSize));
+
             }
         }
 

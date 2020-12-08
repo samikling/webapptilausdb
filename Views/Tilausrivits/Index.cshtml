@@ -1,5 +1,6 @@
-﻿@model IEnumerable<WebAppTilausDB.Models.Tilausrivit>
-
+﻿@model PagedList.IPagedList<WebAppTilausDB.Models.Tilausrivit>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
 }
@@ -11,41 +12,48 @@
 </p>
 <table class="table">
     <tr>
+        <th>@Html.ActionLink("TilausID", "Index", new { sortOrder = ViewBag.NameSortParm })</th>
         <th>
-            @Html.DisplayNameFor(model => model.Maara)
+            Maara
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ahinta)
+            AHinta
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tilaukset.Toimitusosoite)
+            Toimitusosoite
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tuotteet.Nimi)
+            Nimi
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Maara)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ahinta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tilaukset.Toimitusosoite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tuotteet.Nimi)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TilausriviID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TilausriviID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TilausriviID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.TilausID) </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maara)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ahinta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tilaukset.Toimitusosoite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tuotteet.Nimi)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TilausriviID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TilausriviID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TilausriviID })
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, page }))
