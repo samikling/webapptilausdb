@@ -42,6 +42,17 @@ namespace WebAppTilausDB.Controllers
                
             }
         }
+        public ActionResult _TilausRivit()
+        {
+            var tilausRiviLista = from tr in db.Tilausrivit
+                                  join t in db.Tilaukset on tr.TilausID equals t.TilausID
+                                  where tr.TilausID == tilausID
+                                  select new OrderRows
+                                  {
+
+                                  };
+            return (tilausRiviLista);
+        }
 
         // GET: Tilauksets/Details/5
         public ActionResult Details(int? id)
