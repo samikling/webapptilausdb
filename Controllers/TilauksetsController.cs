@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppTilausDB.Models;
+using WebAppTilausDB.ViewModels;
 using PagedList;
 namespace WebAppTilausDB.Controllers
 {
@@ -36,22 +37,39 @@ namespace WebAppTilausDB.Controllers
                         tilaukset = tilaukset.OrderBy(a => a.Asiakkaat.Nimi);
                         break;
                 }
-                int pageSize = (pagesize ?? 3); //Tämä palauttaa sivukoon taikka jos pagesize on null, niin palauttaa koon 10 riviä per sivu
+                int pageSize = (pagesize ?? 10); //Tämä palauttaa sivukoon taikka jos pagesize on null, niin palauttaa koon 10 riviä per sivu
                 int pageNumber = (page ?? 1); //Tämä palauttaa sivunumeron taikka jos page on null, niin palauttaa numeron yksi
                 return View(tilaukset.ToPagedList(pageNumber, pageSize));
                
             }
         }
-        public ActionResult _TilausRivit()
+        public ActionResult _TilausRivit(int? tilausID)
         {
+            if ((tilausID == null) || (tilausID == 0) )
+            {
+                return HttpNotFound();
+            }
+            else
+            {
             var tilausRiviLista = from tr in db.Tilausrivit
                                   join t in db.Tilaukset on tr.TilausID equals t.TilausID
-                                  where tr.TilausID == tilausID
-                                  select new OrderRows
+                                  where t.TilausID == tilausID
+                                  join tu in db.Tuotteet on tr.TuoteID equals tu.TuoteID
+                                  select new TilausData
                                   {
+                                      AsiakasID = (int)t.AsiakasID,
+                                      TilausID = (int)t.TilausID,
+                                      TilausriviID = tr.TilausriviID,
+                                      TuoteID = (int)tr.TuoteID,
+                                      Maara = (int)tr.Maara,
+                                      Ahinta = (float)tr.Ahinta,
+                                      Postinumero = t.Postinumero,
+                                      Nimi = tu.Nimi
 
                                   };
-            return (tilausRiviLista);
+            return PartialView(tilausRiviLista);
+
+            }
         }
 
         // GET: Tilauksets/Details/5

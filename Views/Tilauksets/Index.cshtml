@@ -4,60 +4,97 @@
 @{
     ViewBag.Title = "Tilaukset";
 }
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $(".showTilausData").click(function () {
+                let tilauksenId = $(this).data('tilausid');
+                alert("Klikkasit tilausnumeroa: " + tilauksenId);
+                var url = "/Tilauksets/_Tilausrivit/?tilausID=" + tilauksenId;
+                $("#tilausData_" + tilauksenId).append(" <b>Ladataan tilauksen " + tilauksenId + " rivejä...</b>");
 
-<h2>Index</h2>
+                var $detailDiv = $("#tilausData_" + tilauksenId);
+
+                console.log(url);
+                console.log($detailDiv);
+
+                $.get(url, function (data) {
+                    $detailDiv.replaceWith(data);
+                });
+            });
+        });
+    </script>
+    }
+
+<h2>Tilaukset</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Toimitusosoite
-        </th>
-        <th>
-            Tilauspvm
-        </th>
-        <th>
-            Toimituspvm
-        </th>
-        <th>
-            @Html.ActionLink("Nimi", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            Postitoimipaikka
-        </th>
-        <th></th>
-    </tr>
+<div class="container-fluid">
+    <div class="card-header">
+        <table class="table">
+            <tr>
+                <th>
+                    Toimitusosoite
+                </th>
+                <th>
+                    Tilauspvm
+                </th>
+                <th>
+                    Toimituspvm
+                </th>
+                <th>
+                    @Html.ActionLink("Nimi", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    Postitoimipaikka
+                </th>
+                <th></th>
+            </tr>
+           </table>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Toimitusosoite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tilauspvm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Toimituspvm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Asiakkaat.Nimi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TilausID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
-            </td>
-        </tr>
-    }
+        <div id="accordion">
+            @foreach (var item in Model)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link showTilausData" data-tilausid="@item.TilausID" data-toggle="collapse" href="#collapse_@item.TilausID">
+                            <form>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@item.TilausID</span>
+                                    </div>
+                                    <input type="text" class="form-control px-2" value="@item.Toimitusosoite" disabled />
+                                    <input type="text" class="form-control px-2" value="@item.Tilauspvm" disabled />
+                                    <input type="text" class="form-control px-2" value="@item.Toimituspvm" disabled />
+                                    <input type="text" class="form-control px-2" value="@item.Asiakkaat.Nimi" disabled />
+                                    <input type="text" class="form-control px-2" value="@item.Postitoimipaikat.Postitoimipaikka" disabled />
 
-</table>
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                </div>
+                            </form>
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, page }))
+                        </a>
+                    </div>
+                    <div id="collapse_@item.TilausID" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <div id="tilausData_@item.TilausID"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @*@ <tr>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.TilausID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
+                    </td>
+                </tr>*@
+            </div>
+        </div>
+    </div>
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, page }))
