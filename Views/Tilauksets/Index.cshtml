@@ -1,15 +1,15 @@
-﻿@model PagedList.IPagedList<WebAppTilausDB.Models.Tilaukset>
+﻿@model PagedList.IPagedList < WebAppTilausDB.Models.Tilaukset>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Tilaukset";
 }
 @section scripts{
+   
     <script type="text/javascript">
         $(function () {
             $(".showTilausData").click(function () {
                 let tilauksenId = $(this).data('tilausid');
-                alert("Klikkasit tilausnumeroa: " + tilauksenId);
                 var url = "/Tilauksets/_Tilausrivit/?tilausID=" + tilauksenId;
                 $("#tilausData_" + tilauksenId).append(" <b>Ladataan tilauksen " + tilauksenId + " rivejä...</b>");
 
@@ -23,8 +23,8 @@
                 });
             });
         });
-    </script>
-    }
+ </script>
+}
 
 <h2>Tilaukset</h2>
 
@@ -52,7 +52,7 @@
                 </th>
                 <th></th>
             </tr>
-           </table>
+        </table>
 
         <div id="accordion">
             @foreach (var item in Model)
@@ -83,18 +83,14 @@
                     </div>
                 </div>
             }
-            @*@ <tr>
-
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.TilausID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
-                    </td>
-                </tr>*@
-            </div>
         </div>
     </div>
-        <br />
+</div>
+<br />
+
+<br />
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
         @Html.PagedListPager(Model, page => Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, page }))
+     
+

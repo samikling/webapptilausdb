@@ -11,8 +11,7 @@ namespace WebAppTilausDB.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Tuotteet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +20,6 @@ namespace WebAppTilausDB.Models
             this.Tilausrivit = new HashSet<Tilausrivit>();
         }
     
-        [Key]
         public int TuoteID { get; set; }
         public string Nimi { get; set; }
         public Nullable<decimal> Ahinta { get; set; }

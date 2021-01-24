@@ -4,19 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8c81497fcea447ddb3a1e52b88f9818b" Name="Diagram1">
+      <Diagram DiagramId="e9b8efa59e63435e9649f8ceec38b296" Name="Diagram1">
         <EntityTypeShape EntityType="TilausDBModel.Asiakkaat" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TilausDBModel.Henkilot" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TilausDBModel.Logins" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TilausDBModel.Postitoimipaikat" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TilausDBModel.Tilaukset" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TilausDBModel.Tilausrivit" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TilausDBModel.Tuotteet" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TilausDBModel.Tuotteet" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TilausDBModel.myynnit_per_paiva" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="TilausDBModel.FK_Asiakkaat_Postitoimipaikat" ManuallyRouted="false" />
         <AssociationConnector Association="TilausDBModel.FK_Tilaukset_Asiakkaat" ManuallyRouted="false" />
         <AssociationConnector Association="TilausDBModel.FK_Tilaukset_Postitoimipaikat" ManuallyRouted="false" />
         <AssociationConnector Association="TilausDBModel.FK_Tilausrivit_Tilaukset" ManuallyRouted="false" />
         <AssociationConnector Association="TilausDBModel.FK_Tilausrivit_Tuotteet" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TilausDBModel.Logins" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="TilausDBModel.database_firewall_rules" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TilausDBModel.kokonaismyynti_apu_taulu" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="TilausDBModel.TopSales" Width="1.5" PointX="9.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

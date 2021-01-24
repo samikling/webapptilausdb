@@ -12,15 +12,10 @@ namespace WebAppTilausDB.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tilausrivit
+    public partial class myynnit_per_paiva
     {
-        public int TilausriviID { get; set; }
-        public Nullable<int> TilausID { get; set; }
-        public Nullable<int> TuoteID { get; set; }
-        public Nullable<int> Maara { get; set; }
-        public Nullable<decimal> Ahinta { get; set; }
-    
-        public virtual Tilaukset Tilaukset { get; set; }
-        public virtual Tuotteet Tuotteet { get; set; }
+        public long rowid { get; set; }
+        public Nullable<int> Viikonpäivä { get; set; }
+        public Nullable<decimal> Myynti { get; set; }
     }
 }

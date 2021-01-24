@@ -11,15 +11,12 @@ namespace WebAppTilausDB.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Logins
     {
         public int LoginId { get; set; }
-        [Required(ErrorMessage = "Anna käyttäjätunnus!")] //Vaaditaan login toimintoja varten
         public string UserName { get; set; }
-        [DataType(DataType.Password)] //Kertoo ohjelmalle että annettava tieto on salasana.
-        [Required(ErrorMessage = "Anna salasana!")] //Annetaan virheilmoitus, jos salasanaa ei annettu.
         public string PassWord { get; set; }
-        public string LoginErrorMessage { get; set; }
+        public string LoginErrorMessage { get; internal set; }
     }
 }

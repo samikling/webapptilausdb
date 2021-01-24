@@ -211,5 +211,55 @@ namespace WebAppTilausDB.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Paivittaismyynti()
+        {
+            string paivatLista;
+            string myynnitLista;
+            List<myynnit_per_paiva> MyynnitLista = new List<myynnit_per_paiva>();
+
+            var paivittaisMyyntiData = from m in db.myynnit_per_paiva
+                                       select m;
+
+            foreach (myynnit_per_paiva myynnit in paivittaisMyyntiData)
+            {
+                myynnit_per_paiva yksiMyyntiRivi = new myynnit_per_paiva();
+                yksiMyyntiRivi.Viikonpäivä = myynnit.Viikonpäivä;
+                yksiMyyntiRivi.Myynti = (int)myynnit.Myynti;
+                //OneSalesRow.CategorySales = 11;
+                MyynnitLista.Add(yksiMyyntiRivi);
+
+            }
+            paivatLista = "'" + string.Join("','", MyynnitLista.Select(n => n.Viikonpäivä).ToList()) + "'";
+            myynnitLista = string.Join(",", MyynnitLista.Select(n => n.Myynti).ToList());
+
+
+
+            ViewBag.paivaTieto = paivatLista;
+            ViewBag.myyntiTieto = myynnitLista;
+
+            string tuoteLista;
+            string salesLista;
+            List<kokonaismyynti_apu_taulu> TopSalesLista = new List<kokonaismyynti_apu_taulu>();
+
+            var topSalesData = (from t in db.kokonaismyynti_apu_taulu orderby t.DailySales descending
+                               select t).Take(10);
+            foreach (kokonaismyynti_apu_taulu sales in topSalesData)
+            {
+                kokonaismyynti_apu_taulu yksTopSales = new kokonaismyynti_apu_taulu();
+                yksTopSales.Nimi = sales.Nimi;
+                yksTopSales.DailySales = (int)sales.DailySales;
+                TopSalesLista.Add(yksTopSales);
+            }
+
+            tuoteLista = "'" + string.Join("','", TopSalesLista.Select(n => n.Nimi).ToList()) + "'";
+            salesLista = string.Join(",", TopSalesLista.Select(n => n.DailySales).ToList());
+
+            ViewBag.tuoteTieto = tuoteLista;
+            ViewBag.salesTieto = salesLista;
+
+            return View();
+        }
+
     }
 }

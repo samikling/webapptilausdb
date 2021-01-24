@@ -27,10 +27,14 @@ namespace WebAppTilausDB.Models
     
         public virtual DbSet<Asiakkaat> Asiakkaat { get; set; }
         public virtual DbSet<Henkilot> Henkilot { get; set; }
+        public virtual DbSet<Logins> Logins { get; set; }
         public virtual DbSet<Postitoimipaikat> Postitoimipaikat { get; set; }
         public virtual DbSet<Tilaukset> Tilaukset { get; set; }
         public virtual DbSet<Tilausrivit> Tilausrivit { get; set; }
         public virtual DbSet<Tuotteet> Tuotteet { get; set; }
-        public virtual DbSet<Logins> Logins { get; set; }
+        public virtual DbSet<myynnit_per_paiva> myynnit_per_paiva { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<kokonaismyynti_apu_taulu> kokonaismyynti_apu_taulu { get; set; }
+        public virtual DbSet<TopSales> TopSales { get; set; }
     }
 }

@@ -12,15 +12,13 @@ namespace WebAppTilausDB.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tilausrivit
+    public partial class database_firewall_rules
     {
-        public int TilausriviID { get; set; }
-        public Nullable<int> TilausID { get; set; }
-        public Nullable<int> TuoteID { get; set; }
-        public Nullable<int> Maara { get; set; }
-        public Nullable<decimal> Ahinta { get; set; }
-    
-        public virtual Tilaukset Tilaukset { get; set; }
-        public virtual Tuotteet Tuotteet { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string start_ip_address { get; set; }
+        public string end_ip_address { get; set; }
+        public System.DateTime create_date { get; set; }
+        public System.DateTime modify_date { get; set; }
     }
 }
